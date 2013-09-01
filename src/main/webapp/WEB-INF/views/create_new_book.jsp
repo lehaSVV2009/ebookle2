@@ -2,6 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="wrapper">
 
+    <link rel="stylesheet" type="text/css"
+          href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"/>
+
+    <script type="text/javascript"
+            src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+
     <spring:message code="create_book_label" var="createBookLabel"/>
     <spring:message code="title_label" var="titleLabel"/>
     <spring:message code="description_label" var="descriptionLabel"/>
@@ -59,7 +67,7 @@
                 <label for="inputEmail" class="col-lg-2 control-label">${addTagLabel}</label>
 
                 <div class="col-lg-10">
-                    <input type="text" name="bookTag"/>
+                    <input type="text" name="bookTag" id="bookTag"/>
                 </div>
             </div>
             <div class="form-group">
@@ -67,4 +75,15 @@
             </div>
         </fieldset>
     </form>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $( "#bookTag" ).autocomplete({
+                source: '${pageContext.request.contextPath}/autocomplete'
+            });
+
+        });
+    </script>
+
 </div>

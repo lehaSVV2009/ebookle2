@@ -43,10 +43,18 @@ public class TagDAOImpl extends AbstractDAOImpl<Tag, Integer> implements TagDAO 
     }
 
     @Override
-    public List<Tag> findByPopularity (int maxNumber) {
+    public List<Tag> findByPopularity (int maxResult) {
         return getSession().createCriteria(Tag.class)
                 .addOrder(Order.desc("counter"))
-                .setMaxResults(maxNumber)
+                .setMaxResults(maxResult)
+                .list();
+    }
+
+    @Override
+    public List<Tag> findTagByFirstLetters (String firstLetters, int maxResult) {
+        return getSession().createCriteria(Tag.class)
+                .setMaxResults(maxResult)
+                .add(Restrictions.like("bookTag", firstLetters + "%"))
                 .list();
     }
 }

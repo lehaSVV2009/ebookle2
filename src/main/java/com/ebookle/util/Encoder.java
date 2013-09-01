@@ -1,11 +1,5 @@
 package com.ebookle.util;
 
-import com.sun.jndi.toolkit.url.UrlUtil;
-
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.util.Map;
-
 /**
  * Created with IntelliJ IDEA.
  * User: admin

@@ -62,4 +62,10 @@ public class TagServiceImpl implements TagService {
     public List<Tag> findByPopularity (int maxNumber) {
         return tagDAO.findByPopularity(maxNumber);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Tag> findTagByFirstLetters (String firstLetters, int maxResult) {
+        return tagDAO.findTagByFirstLetters(firstLetters, maxResult);
+    }
 }

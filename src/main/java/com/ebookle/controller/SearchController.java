@@ -20,25 +20,5 @@ import java.util.List;
 public class SearchController {
 
 
-    private static DummyDB dummyDB = new DummyDB();
-
-    @RequestMapping(value = "/get_country_list.html",
-            method = RequestMethod.GET,
-            headers="Accept=*/*")
-    @ResponseBody
-    protected List<String> getCountryList (@RequestParam("term") String query) {
-        List<String> countryList = dummyDB.getCountryList(query);
-
-        return countryList;
-    }
-
-    @RequestMapping(value = "/get_tech_list.html",
-            method = RequestMethod.GET,
-            headers="Accept=*/*")
-    public @ResponseBody List<String> getTechList(@RequestParam("term") String query) {
-        List<String> countryList = dummyDB.getTechList(query);
-
-        return countryList;
-    }
 
 }

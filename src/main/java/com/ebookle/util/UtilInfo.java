@@ -18,6 +18,7 @@ public final class UtilInfo {
     public final static String ADMIN_PERSON = "admin";
 
     public final static int CLOUD_REFERENCES_NUMBER = 10;
+    public final static int MAX_AUTOCOMPLETE_TAGS_NUMBER = 10;
 
     public final static String PDF_CONVERTER_SITE = "http://do.convertapi.com/Web2Pdf/json";
 

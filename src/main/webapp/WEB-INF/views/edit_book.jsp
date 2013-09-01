@@ -4,6 +4,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="wrapper"   >
 
+    <link rel="stylesheet" type="text/css"
+          href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"/>
+
+    <script type="text/javascript"
+            src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+
+
     <spring:message code="label.tags" var="labelTags"/>
     <spring:message code="label.add_tag" var="labelAddTag"/>
     <spring:message code="label.add_like" var="labelLike"/>
@@ -55,7 +64,7 @@
 
                         <form action="/${userLogin}/editBook/<%=bookTitle%>/${currentChapter.chapterNumber}/addTag"
                               method="post">
-                            <input type="text" name="bookTag" placeholder="${labelAddTag}"/>
+                            <input type="text" name="bookTag" id="bookTag" placeholder="${labelAddTag}"/>
                         </form>
                         <br/>
                         ${labelTags}:
@@ -198,5 +207,16 @@
         </c:otherwise>
 
     </c:choose>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $( "#bookTag" ).autocomplete({
+                source: '${pageContext.request.contextPath}/autocomplete'
+            });
+
+        });
+    </script>
+
 
 </div>

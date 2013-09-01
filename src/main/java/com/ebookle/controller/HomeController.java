@@ -45,25 +45,6 @@ public class HomeController {
     public String test1 () {
         return "test";
     }
-    private static DummyDB dummyDB = new DummyDB();
-
-    @RequestMapping(value = "/get_country_list",
-            method = RequestMethod.GET,
-            headers="Accept=*/*")
-    public @ResponseBody
-    List<String> getCountryList(@RequestParam("term") String query) {
-        List<String> countryList = dummyDB.getCountryList(query);
-        return countryList;
-    }
-
-    @RequestMapping(value = "/get_tech_list",
-            method = RequestMethod.GET,
-            headers="Accept=*/*")
-    public @ResponseBody List<String> getTechList(@RequestParam("term") String query) {
-        List<String> countryList = dummyDB.getTechList(query);
-
-        return countryList;
-    }
 
     @RequestMapping(value = "/home/{searchType}")
     public String showMostPopularBooks (ModelMap modelMap,

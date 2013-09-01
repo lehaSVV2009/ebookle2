@@ -21,4 +21,5 @@ public interface TagService {
     Tag findTagByName(String name);
     List<Tag> findAllWithBooks ();
     List<Tag> findByPopularity(int maxNumber);
+    public List<Tag> findTagByFirstLetters (String firstLetters, int maxResult);
 }
