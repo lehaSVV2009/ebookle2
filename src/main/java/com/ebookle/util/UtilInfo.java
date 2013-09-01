@@ -7,7 +7,7 @@ package com.ebookle.util;
  * Time: 0:02
  * To change this template use File | Settings | File Templates.
  */
-public final class UtilStrings {
+public final class UtilInfo {
 
     public final static String USER_ROLE_TEXT = "ROLE_USER";
 
@@ -16,6 +16,8 @@ public final class UtilStrings {
     public final static String GUEST_PERSON = "guest";
     public final static String USER_PERSON = "user";
     public final static String ADMIN_PERSON = "admin";
+
+    public final static int CLOUD_REFERENCES_NUMBER = 10;
 
     public final static String PDF_CONVERTER_SITE = "http://do.convertapi.com/Web2Pdf/json";
 

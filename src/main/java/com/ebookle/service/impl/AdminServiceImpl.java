@@ -3,7 +3,7 @@ package com.ebookle.service.impl;
 import com.ebookle.entity.User;
 import com.ebookle.service.AdminService;
 import com.ebookle.service.UserService;
-import com.ebookle.util.UtilStrings;
+import com.ebookle.util.UtilInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +31,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     @Transactional
     public List<User> getUsersHasRoleUser () {
-        return userService.findAllByRole(UtilStrings.USER_ROLE_TEXT);
+        return userService.findAllByRole(UtilInfo.USER_ROLE_TEXT);
     }
 
     public UserService getUserService () {

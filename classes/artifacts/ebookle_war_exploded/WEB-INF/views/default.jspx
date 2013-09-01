@@ -16,6 +16,7 @@
           href="http://localhost:8080/web-resources/bootstrap/css/bootstrap.css"/>
     <![CDATA[<script src="/web-resources/js/jquery-2.0.3.js"></script>]]>
     <![CDATA[<script src="/web-resources/js/sript.js"></script>]]>
+    <![CDATA[<script src="http://neotech.3dn.ru/Tegs/swfobject.js"></script>]]>
     <link rel="stylesheet" type="text/css" media="screen" href="http://localhost:8080/web-resources/css/default.css"/>
 
     <spring:message code="application_name" var="app_name" htmlEscape="false"/>
@@ -26,6 +27,6 @@
 <body>
 <tiles:insertAttribute name="header" ignore="true"/>
 <tiles:insertAttribute name="body"/>
-<tiles:insertAttribute name="footer"/>
+<tiles:insertAttribute name="footer" ignore="true"/>
 </body>
 </html>

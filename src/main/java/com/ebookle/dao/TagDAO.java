@@ -17,4 +17,5 @@ public interface TagDAO extends AbstractDAO<Tag, Integer> {
 
     public Tag findTagByName (String name);
     public List<Tag> findAllWithBooks ();
+    public List<Tag> findByPopularity (int maxNumber);
 }

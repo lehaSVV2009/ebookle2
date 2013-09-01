@@ -4,7 +4,7 @@ import com.ebookle.entity.*;
 import com.ebookle.service.*;
 import com.ebookle.service.impl.UserServiceImpl;
 import com.ebookle.service.validation.BookValidator;
-import com.ebookle.util.UtilStrings;
+import com.ebookle.util.UtilInfo;
 import com.ebookle.webmodel.BookCreationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -13,7 +13,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.List;
 
@@ -219,8 +218,8 @@ public class BookEditorController {
                 chapterService.delete(chapter.getId());
             } else if(chapter.getChapterNumber() > chapterNumber){
                 chapter.setChapterNumber(chapter.getChapterNumber() - 1);
-                if (chapter.getTitle().startsWith(UtilStrings.STANDARD_CHAPTER_NAME)) {
-                    chapter.setTitle(UtilStrings.STANDARD_CHAPTER_NAME + chapter.getChapterNumber());
+                if (chapter.getTitle().startsWith(UtilInfo.STANDARD_CHAPTER_NAME)) {
+                    chapter.setTitle(UtilInfo.STANDARD_CHAPTER_NAME + chapter.getChapterNumber());
                 }
                 chapterService.saveOrUpdate(chapter);
             }
@@ -239,8 +238,8 @@ public class BookEditorController {
 
     private void createChapter (Book book, int number) {
         Chapter chapter = new Chapter(
-                UtilStrings.STANDARD_CHAPTER_NAME + number,
-                UtilStrings.STANDARD_CHAPTER_TEXT,
+                UtilInfo.STANDARD_CHAPTER_NAME + number,
+                UtilInfo.STANDARD_CHAPTER_TEXT,
                 book,
                 number
         );

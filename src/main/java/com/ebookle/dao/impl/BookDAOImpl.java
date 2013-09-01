@@ -73,7 +73,7 @@ public class BookDAOImpl extends AbstractDAOImpl<Book, Integer> implements BookD
     @Override
     public List<Book> findMostPopularWithAuthors () {
         return getSession().createCriteria(Book.class).setFetchMode("user", FetchMode.EAGER)
-                .addOrder(Order.asc("rating"))
+                .addOrder(Order.desc("rating"))
                 .list();
     }
 

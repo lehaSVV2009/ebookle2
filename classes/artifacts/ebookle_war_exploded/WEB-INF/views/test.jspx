@@ -49,10 +49,10 @@
         $(document).ready(function() {
 
             $( "#country" ).autocomplete({
-                source: '${pageContext.request.contextPath}/get_country_list'
+                source: '/get_country_list.html'
             });
 
-            $( "#technologies").autocomplete({
+            /*$( "#technologies").autocomplete({
                 source: function (request, response) {
                     $.getJSON("${pageContext.request.contextPath}/get_tech_list", {
                         term: extractLast(request.term)
@@ -81,7 +81,7 @@
                     return false;
                 }
             });
-
+                 */
         });
     </script>
 

@@ -50,4 +50,8 @@
         <put-attribute name="body" value="/WEB-INF/views/test.jspx"/>
     </definition>
 
+   <definition name="cloud" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/cloud.jspx"/>
+    </definition>
+
 </tiles-definitions>

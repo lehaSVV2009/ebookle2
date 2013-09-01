@@ -56,4 +56,10 @@ public class TagServiceImpl implements TagService {
     public List<Tag> findAllWithBooks () {
         return tagDAO.findAllWithBooks();
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Tag> findByPopularity (int maxNumber) {
+        return tagDAO.findByPopularity(maxNumber);
+    }
 }

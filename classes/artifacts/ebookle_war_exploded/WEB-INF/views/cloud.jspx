@@ -6,4 +6,13 @@
     <jsp:directive.page contentType="text/html; charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
 
+    <div id="yoblako" align="center">
+        <c:if test="${not empty tags}">
+            <c:forEach items="${tags}" var="tag">
+                <a style="font-size:8pt;" href="/searcher/${tag.id}"
+                   class="eTag eTagGr8">${tag.bookTag}</a>
+            </c:forEach>
+        </c:if>
+    </div>
+
 </div>

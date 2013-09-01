@@ -3,7 +3,6 @@ package com.ebookle.service.impl;
 import com.ebookle.entity.User;
 import com.ebookle.service.RegistrationService;
 import com.ebookle.util.RandomKeyCreator;
-import com.ebookle.util.UtilStrings;
 import com.ebookle.webmodel.RegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;

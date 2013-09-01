@@ -8,6 +8,7 @@ import com.ebookle.entity.Tag;
 import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -38,6 +39,14 @@ public class TagDAOImpl extends AbstractDAOImpl<Tag, Integer> implements TagDAO 
     @Override
     public List<Tag> findAllWithBooks () {
         return getSession().createCriteria(Tag.class).setFetchMode("books", FetchMode.EAGER)
+                .list();
+    }
+
+    @Override
+    public List<Tag> findByPopularity (int maxNumber) {
+        return getSession().createCriteria(Tag.class)
+                .addOrder(Order.desc("counter"))
+                .setMaxResults(maxNumber)
                 .list();
     }
 }

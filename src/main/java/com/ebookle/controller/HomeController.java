@@ -2,16 +2,17 @@ package com.ebookle.controller;
 
 import com.ebookle.entity.Book;
 import com.ebookle.entity.Category;
+import com.ebookle.entity.Tag;
 import com.ebookle.entity.User;
 import com.ebookle.service.BookService;
 import com.ebookle.service.CategoryService;
+import com.ebookle.service.TagService;
 import com.ebookle.service.UserService;
-import com.ebookle.util.UtilStrings;
+import com.ebookle.util.UtilInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
@@ -36,6 +37,9 @@ public class HomeController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private TagService tagService;
 
     @RequestMapping(value = "/test")
     public String test1 () {
@@ -68,6 +72,7 @@ public class HomeController {
                                         @PathVariable("searchType") String searchType) {
         try {
 
+            makeCloud(modelMap);
             List<Book> books = new ArrayList<Book>();
             List<Category> categories = categoryService.findAll();
             if ("mostPopular".equals(searchType)) {
@@ -88,7 +93,7 @@ public class HomeController {
             modelMap.addAttribute("books", books);
             modelMap.addAttribute("categories", categories);
             if (principal == null) {
-                modelMap.addAttribute("person", UtilStrings.GUEST_PERSON);
+                modelMap.addAttribute("person", UtilInfo.GUEST_PERSON);
                 return "home";
             }
             String login = principal.getName();
@@ -96,10 +101,10 @@ public class HomeController {
             if (user == null) {
                 return showFlashMessage("Bad database", redirectAttributes);
             }
-            if (user.getRole().equals(UtilStrings.USER_ROLE_TEXT)){
-                modelMap.addAttribute("person", UtilStrings.USER_PERSON);
+            if (user.getRole().equals(UtilInfo.USER_ROLE_TEXT)){
+                modelMap.addAttribute("person", UtilInfo.USER_PERSON);
             } else {
-                modelMap.addAttribute("person", UtilStrings.ADMIN_PERSON);
+                modelMap.addAttribute("person", UtilInfo.ADMIN_PERSON);
             }
             modelMap.addAttribute("user", user);
             modelMap.addAttribute("userBooks", user.getBooks());
@@ -125,5 +130,12 @@ public class HomeController {
         redirectAttributes.addFlashAttribute("flashMessage", flashMessage);
         return "home";
     }
+
+    public void makeCloud(ModelMap modelMap) {
+
+        List<Tag> tags = tagService.findByPopularity(UtilInfo.CLOUD_REFERENCES_NUMBER);
+        modelMap.addAttribute("tags", tags);
+    }
+
 
 }

@@ -1,9 +1,8 @@
 package com.ebookle.controller;
 
-import com.ebookle.entity.User;
 import com.ebookle.service.impl.RegistrationServiceImpl;
 import com.ebookle.service.validation.RegistrationValidator;
-import com.ebookle.util.UtilStrings;
+import com.ebookle.util.UtilInfo;
 import com.ebookle.webmodel.RegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,11 +37,11 @@ public class RegistrationController {
 
         validator.validate(registrationForm, errors);
         if (errors.hasErrors()) {
-            redirectAttributes.addFlashAttribute("badInput", UtilStrings.BAD_INPUT);
+            redirectAttributes.addFlashAttribute("badInput", UtilInfo.BAD_INPUT);
             return "redirect:/registration";
         }
         registrationService.register(registrationForm);
-        redirectAttributes.addFlashAttribute("goodMessage", UtilStrings.SEND_DATA_SUCCESS);
+        redirectAttributes.addFlashAttribute("goodMessage", UtilInfo.SEND_DATA_SUCCESS);
         return "redirect:/";
     }
 
