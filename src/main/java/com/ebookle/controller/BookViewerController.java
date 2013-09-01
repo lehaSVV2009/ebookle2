@@ -7,6 +7,7 @@ import com.ebookle.entity.User;
 import com.ebookle.service.BookService;
 import com.ebookle.service.PreferService;
 import com.ebookle.service.impl.UserServiceImpl;
+import com.ebookle.util.Encoder;
 import com.petebevin.markdown.MarkdownProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,7 +46,7 @@ public class BookViewerController {
                                @PathVariable("userLogin") String userLogin,
                                @PathVariable("bookTitle") String bookTitle,
                                ModelMap modelMap) {
-
+        bookTitle = Encoder.decode(bookTitle);
         User user = userService.findByLogin(userLogin);
         Book book = bookService.findByTitleAndUserIdWithChapters(bookTitle, user);
         Chapter currentChapter = book.getChapters().get(chapterNumber - 1);

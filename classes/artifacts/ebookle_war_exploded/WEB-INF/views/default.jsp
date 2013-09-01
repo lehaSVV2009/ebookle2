@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="http://localhost:8080/web-resources/css/default.css"/>
 
     <title>
-        Message
+        ebookle.com
     </title>
 </head>
 <body>

@@ -1,3 +1,5 @@
+<%@ page import="com.ebookle.util.Encoder" %>
+<%@ page import="com.ebookle.entity.Book" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="wrapper"   >
@@ -24,24 +26,25 @@
             <h2>${currentChapter.title}</h2>
         </tr>
     </table>
+    <%String bookTitle = Encoder.encode(((Book)request.getAttribute("book")).getTitle());%>
     <c:choose>
         <c:when test="${person eq 'ownUser'}">
             <c:choose>
                 <c:when test="${userAction eq 'edit'}">
 
                     <div class="well leftSidePanel">
-                        <a href="/${userLogin}/editBook/${bookTitle}/createNewChapter">${labelCreateChapter}</a>
+                        <a href="/${userLogin}/editBook/<%=bookTitle%>/createNewChapter">${labelCreateChapter}</a>
                         <table class="table table-bordered leftSideTable">
                             <c:forEach items="${book.chapters}" var="chapter">
                                 <tr>
                                     <td>
-                                        <form action="/${userLogin}/editBook/${bookTitle}/${chapter.chapterNumber}"
+                                        <form action="/${userLogin}/editBook/<%=bookTitle%>/${chapter.chapterNumber}"
                                               method="get">
                                             <input type="submit" value="${chapter.title}"/>
                                         </form>
                                     </td>
                                     <td>
-                                        <a href="/${userLogin}/editBook/${bookTitle}/${chapter.chapterNumber}/deleteChapter">
+                                        <a href="/${userLogin}/editBook/<%=bookTitle%>/${chapter.chapterNumber}/deleteChapter">
                                             <img src="http://localhost:8080/web-resources/img/delete16.png"/>
                                         </a>
                                     </td>
@@ -50,7 +53,7 @@
                         </table>
                         <br/>
 
-                        <form action="/${userLogin}/editBook/${bookTitle}/${currentChapter.chapterNumber}/addTag"
+                        <form action="/${userLogin}/editBook/<%=bookTitle%>/${currentChapter.chapterNumber}/addTag"
                               method="post">
                             <input type="text" name="bookTag" placeholder="${labelAddTag}"/>
                         </form>
@@ -67,12 +70,12 @@
 
                     <div class="well content">
                         <div class="btn-group btn-group-justified">
-                            <a href="/${userLogin}/editBook/${bookTitle}/${currentChapter.chapterNumber}" class="btn btn-default">
+                            <a href="/${userLogin}/editBook/<%=bookTitle%>/${currentChapter.chapterNumber}" class="btn btn-default">
                                 ${labelEdit}</a>
-                            <a href="/${userLogin}/editBook/${bookTitle}/${currentChapter.chapterNumber}/show" class="btn btn-default">
+                            <a href="/${userLogin}/editBook/<%=bookTitle%>/${currentChapter.chapterNumber}/show" class="btn btn-default">
                                 ${labelShow}</a>
                         </div>
-                        <form action="/${userLogin}/editBook/${bookTitle}/${currentChapter.chapterNumber}/save" method="post">
+                        <form action="/${userLogin}/editBook/<%=bookTitle%>/${currentChapter.chapterNumber}/save" method="post">
                             <textarea name="text" class="reader">${currentChapter.text}</textarea>
                             <br/>
                             <button type="submit" class="btn btn-default btn-block">${labelSave}</button>
@@ -87,7 +90,7 @@
                             <c:forEach items="${book.chapters}" var="chapter">
                                 <tr>
                                     <td>
-                                        <form action="/${userLogin}/editBook/${bookTitle}/${chapter.chapterNumber}/show"
+                                        <form action="/${userLogin}/editBook/<%=bookTitle%>/${chapter.chapterNumber}/show"
                                               method="get">
                                             <input type="submit" value="${chapter.title}"/>
                                         </form>
@@ -112,9 +115,9 @@
                             <a href="#" class="btn btn-default"  onClick="changeSize(-10)">${labelFontSizeMinus}</a>
                             <a href="#" class="btn btn-default"  onClick="changeWidth(25)">${labelWidthPlus}</a>
                             <a href="#" class="btn btn-default"  onClick="changeWidth(-25)">${labelWidthMinus}</a>
-                            <a href="/${userLogin}/editBook/${bookTitle}/${currentChapter.chapterNumber}" class="btn btn-default">
+                            <a href="/${userLogin}/editBook/<%=bookTitle%>/${currentChapter.chapterNumber}" class="btn btn-default">
                                 ${labelEdit}</a>
-                            <a href="/${userLogin}/editBook/${bookTitle}/${currentChapter.chapterNumber}/show" class="btn btn-default">
+                            <a href="/${userLogin}/editBook/<%=bookTitle%>/${currentChapter.chapterNumber}/show" class="btn btn-default">
                                 ${labelShow}</a>
                         </div>
                         <div class="reader">${htmlChapterText}</div>
@@ -135,7 +138,7 @@
                     <c:forEach items="${book.chapters}" var="chapter">
                         <tr>
                             <td>
-                                <form action="/${userLogin}/editBook/${bookTitle}/${chapter.chapterNumber}/show"
+                                <form action="/${userLogin}/editBook/<%=bookTitle%>/${chapter.chapterNumber}/show"
                                       method="get">
                                     <input type="submit" value="${chapter.title}"/>
                                 </form>
@@ -168,9 +171,9 @@
                 <img src="http://localhost:8080/web-resources/img/rating.png"/>
                 ${book.rating}
                 <c:if test="${person eq 'notOwnUser'}">
-                    <spring:url value="/${userLogin}/editBook/${bookTitle}/${currentChapter.chapterNumber}/show/1"
+                    <spring:url value="/${userLogin}/editBook/<%=bookTitle%>/${currentChapter.chapterNumber}/show/1"
                                 var="likeUrl"/>
-                    <spring:url value="/${userLogin}/editBook/${bookTitle}/${currentChapter.chapterNumber}/show/-1"
+                    <spring:url value="/${userLogin}/editBook/<%=bookTitle%>/${currentChapter.chapterNumber}/show/-1"
                                 var="dislikeUrl"/>
 
                     <c:if test="${mark ne 'showJustDislike'}">
@@ -185,7 +188,7 @@
                     </c:if>
 
                     <div style="float : right">
-                        <a href="/${userLogin}/editBook/${bookTitle}/${chapterNumber}/savePdf">
+                        <a href="/${userLogin}/editBook/<%=bookTitle%>/${chapterNumber}/savePdf">
                             <img src="http://localhost:8080/web-resources/img/pdf.png"/>
                         </a>
                     </div>

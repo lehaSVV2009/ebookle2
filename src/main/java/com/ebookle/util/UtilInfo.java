@@ -24,5 +24,4 @@ public final class UtilInfo {
     public final static String BAD_INPUT = "Bad input!";
     public final static String SEND_DATA_SUCCESS = "Data was send to your email!";
 
-
 }

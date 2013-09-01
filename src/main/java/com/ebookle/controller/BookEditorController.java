@@ -4,6 +4,7 @@ import com.ebookle.entity.*;
 import com.ebookle.service.*;
 import com.ebookle.service.impl.UserServiceImpl;
 import com.ebookle.service.validation.BookValidator;
+import com.ebookle.util.Encoder;
 import com.ebookle.util.UtilInfo;
 import com.ebookle.webmodel.BookCreationForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,12 +87,8 @@ public class BookEditorController {
         if (bookTag != null && !"".equals(bookTag)) {
             book = addTag(bookTag, book);
         }
-       /* try {
-            bookTitle = UrlUtil.encode(bookTitle, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }     */
         bookService.saveOrUpdate(book);
+        bookTitle = Encoder.encode(bookTitle);
         return "redirect:/" + userLogin + "/editBook/" + bookTitle + "/1";
     }
 
@@ -104,6 +101,7 @@ public class BookEditorController {
                           @PathVariable("bookTitle") String bookTitle,
                           @RequestParam("bookTag") String bookTag,
                           ModelMap modelMap) {
+        bookTitle = Encoder.decode(bookTitle);
         if (principal == null
                 || ! principal.getName().equals(userLogin)) {
             modelMap.addAttribute("error", "Страница недоступна!");
@@ -113,6 +111,7 @@ public class BookEditorController {
         Book book = bookService.findByTitleAndUserIdWithTags(bookTitle, user);
         book = addTag(bookTag, book);
         bookService.saveOrUpdate(book);
+        bookTitle = Encoder.encode(bookTitle);
         return "redirect:/" + userLogin + "/editBook/" + bookTitle + "/" + chapterNumber;
     }
 
@@ -152,8 +151,7 @@ public class BookEditorController {
                               @PathVariable("userLogin") String userLogin,
                               @PathVariable("bookTitle") String bookTitle,
                               ModelMap modelMap) {
-
-        //bookTitle = decodeWithUtf(bookTitle);
+        bookTitle = Encoder.decode(bookTitle);
         if (principal == null
                 || ! principal.getName().equals(userLogin)) {
             modelMap.addAttribute("error", "Страница недоступна!");
@@ -180,9 +178,11 @@ public class BookEditorController {
     @RequestMapping(value = "/{userLogin}/editBook/{bookTitle}/createNewChapter", method = RequestMethod.GET)
     public String createNewChapter (Principal principal, @PathVariable("userLogin") String userLogin, @PathVariable("bookTitle") String bookTitle) {
 
+        bookTitle = Encoder.decode(bookTitle);
         User user = userService.findByLogin(principal.getName());
         Book book = bookService.findByTitleAndUserIdWithChapters(bookTitle, user);
         createChapter(book, book.getChapters().size() + 1);
+        bookTitle = Encoder.encode(bookTitle);
         return ("redirect:/" + userLogin + "/editBook/" + bookTitle + "/" + (book.getChapters().size() + 1));
     }
 
@@ -190,11 +190,13 @@ public class BookEditorController {
     @RequestMapping(value = "/{userLogin}/editBook/{bookTitle}/{chapterNumber}/save", method = RequestMethod.POST)
     public String saveChapter (@RequestParam("text") String text, Principal principal, @PathVariable("chapterNumber") Integer chapterNumber, @PathVariable("userLogin") String userLogin, @PathVariable("bookTitle") String bookTitle, ModelMap modelMap) {
 
+        bookTitle = Encoder.decode(bookTitle);
         User user = userService.findByLogin(principal.getName());
         Book book = bookService.findByTitleAndUserId(bookTitle, user);
         Chapter chapter = chapterService.findByBookAndChapterNumber(book, chapterNumber);
         chapter.setText(text);
         chapterService.saveOrUpdate(chapter);
+        bookTitle = Encoder.encode(bookTitle);
         return ("redirect:/" + userLogin + "/editBook/" + bookTitle + "/" + chapterNumber);
     }
 
@@ -205,6 +207,7 @@ public class BookEditorController {
                                  @PathVariable("userLogin") String userLogin,
                                  @PathVariable("bookTitle") String bookTitle,
                                  ModelMap modelMap) {
+        bookTitle = Encoder.decode(bookTitle);
         if (!principal.getName().equals(userLogin)) {
             modelMap.addAttribute("error", "You haven't got access to this page!");
             return "error";
@@ -223,6 +226,7 @@ public class BookEditorController {
                 }
                 chapterService.saveOrUpdate(chapter);
             }
+            bookTitle = Encoder.encode(bookTitle);
         }
         return ("redirect:/" + userLogin + "/editBook/" + bookTitle + "/1");
     }

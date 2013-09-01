@@ -1,3 +1,8 @@
+<%@ page import="com.ebookle.util.Encoder" %>
+<%@ page import="com.ebookle.entity.User" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="com.ebookle.entity.Book" %>
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -48,10 +53,13 @@
                 <br/>
 
                 <table class="table table-bordered leftSideTable">
+                    <%User user = (User)request.getAttribute("user");%>
+                    <%Iterator iterator = user.getBooks().iterator();%>
                     <c:forEach items="${user.books}" var="userBook">
+                        <%Book curUserBook = (Book) iterator.next();%>
                         <tr>
                             <td class="tableCol1">
-                                <a href="/${user.login}/editBook/${userBook.title}/1">
+                                <a href="/${user.login}/editBook/<%=Encoder.encode(curUserBook.getTitle())%>/1">
                                     <c:choose>
                                         <c:when test="${fn:length(userBook.title) gt 20}">
                                             ${fn:substring(userBook.title, 0, 10)}..
@@ -160,10 +168,12 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <%Iterator bookIterator = ((List<Book>)request.getAttribute("books")).iterator();%>
                         <c:forEach items="${books}" var="book">
+                            <%Book curBook = (Book) bookIterator.next();%>
                             <tr>
                                 <td>
-                                    <a href="/${book.user.login}/editBook/${book.title}/1/show">
+                                    <a href="/${book.user.login}/editBook/<%=Encoder.encode(curBook.getTitle())%>/1/show">
                                         <c:choose>
                                             <c:when test="${fn:length(book.title) gt 20}">
                                                 ${fn:substring(book.title, 0, 20)}...
