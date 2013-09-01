@@ -9,7 +9,6 @@
     <script src="/web-resources/js/sript.js"></script>
     <script src="http://neotech.3dn.ru/Tegs/swfobject.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="http://localhost:8080/web-resources/css/default.css"/>
-    <script src="/web-resources/js/cloud.js"></script>
 
     <title>
         Message

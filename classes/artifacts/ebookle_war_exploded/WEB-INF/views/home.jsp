@@ -199,6 +199,8 @@
                     </table>
                 </c:if>
 
+                <script src="/web-resources/js/cloud.js"></script>
+
                 <a href="/statistics/authorCounts">${labelStatistics}</a>
 
             </fieldset>
