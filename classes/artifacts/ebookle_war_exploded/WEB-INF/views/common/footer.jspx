@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<footer
+        xmlns:jsp="http://java.sun.com/JSP/Page"
+        xmlns:spring="http://www.springframework.org/tags"
+        version="2.0" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <spring:message code="footer_text" var="footerText"/>
+
+    <div class="container">
+
+        <span>
+            <a href="?lang=ru"><img src="http://localhost:8080/web-resources/img/rus16.png">rus</img></a>
+            <a href="?lang=en"><img src="http://localhost:8080/web-resources/img/eng16.png">eng</img></a>
+        </span>
+
+        ${footerText}
+
+
+
+        <span style="float: right">
+            <a href="?theme=dark">dark</a> |
+            <a href="?theme=light">light</a>
+        </span>
+
+    </div>
+</footer>

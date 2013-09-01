@@ -1,0 +1,88 @@
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     version="2.0">
+    <jsp:directive.page contentType="text/html; charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+
+    <![CDATA[
+    <script type="text/javascript"
+            src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+            ]]>
+
+    <h2>Spring MVC Autocomplete with JQuery &amp; JSON example</h2>
+    <form method="post" action="save.html" modelAttribute="userForm">
+        <table>
+            <tr>
+                <th>Name</th>
+                <td><input path="name" /></td>
+            </tr>
+            <tr>
+                <th>Country</th>
+                <td><input path="country" id="country" /></td>
+            </tr>
+            <tr>
+                <th>Technologies</th>
+                <td><input path="technologies" id="technologies" /></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Save" />
+                    <input type="reset" value="Reset" />
+                </td>
+            </tr>
+        </table>
+        <br />
+
+
+    </form>
+
+    <script type="text/javascript">
+        function split(val) {
+            return val.split(/,\s*/);
+        }
+        function extractLast(term) {
+            return split(term).pop();
+        }
+
+        $(document).ready(function() {
+
+            $( "#country" ).autocomplete({
+                source: '${pageContext.request.contextPath}/get_country_list'
+            });
+
+            $( "#technologies").autocomplete({
+                source: function (request, response) {
+                    $.getJSON("${pageContext.request.contextPath}/get_tech_list", {
+                        term: extractLast(request.term)
+                    }, response);
+                },
+                search: function () {
+                    // custom minLength
+                    var term = extractLast(this.value);
+<![CDATA[               if (term.length < 1) {      ]]>
+                        return false;
+                    }
+                },
+                focus: function () {
+                    // prevent value inserted on focus
+                    return false;
+                },
+                select: function (event, ui) {
+                    var terms = split(this.value);
+                    // remove the current input
+                    terms.pop();
+                    // add the selected item
+                    terms.push(ui.item.value);
+                    // add placeholder to get the comma-and-space at the end
+                    terms.push("");
+                    this.value = terms.join(", ");
+                    return false;
+                }
+            });
+
+        });
+    </script>
+
+</div>

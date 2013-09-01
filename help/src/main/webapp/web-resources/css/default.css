@@ -1,0 +1,78 @@
+.leftSidePanel{
+    display: block;
+    float: left;
+    display: block;
+    width: auto;
+}
+.leftSideTable{
+    position: relative;
+    width: 100%;
+    max-width: 50px;
+}
+.content{
+    float:left;
+    display: block;
+    width: 80%;
+    height: 90%;
+    margin-left: 10px;
+}
+.test{
+    width: 100%;
+    float: left;
+}
+.line50{
+    width: 50px;
+}
+.line80{
+     width: 80px;
+ }
+html, body {
+    height: 100%;
+}
+footer {
+    color: #666;
+    background: #222;
+    padding: 17px 0 18px 0;
+    border-top: 1px solid #000;
+    width: 100%;
+}
+footer a {
+    color: #999;
+}
+footer a:hover {
+    color: #efefef;
+}
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -63px;
+}
+.push {
+    height: 63px;
+}
+
+.wrapper > .container {
+    padding-top: 60px;
+}
+.reader{
+    background-color: white !important;
+    min-height:300px ;
+    min-width: 70%;
+    max-height: 500px;
+    max-width: 980px;
+    overflow-y: auto;
+    color: #000000;
+}
+.register-form{
+    width: 40%;
+}
+.closeCol{
+    width: 5px;
+}
+.registration-div{
+    width: 300px;
+}
+.reader h1, h2, h3, h4, h5, h6{
+     font-size: inherit;
+}
