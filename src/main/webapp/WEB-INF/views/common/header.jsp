@@ -1,12 +1,8 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
-<div id="header"
-     xmlns:jsp="http://java.sun.com/JSP/Page"
-     xmlns:spring="http://www.springframework.org/tags"
-     version="2.0">
+<div id="header">
 
-    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
-    <jsp:output omit-xml-declaration="yes"/>
     <spring:message code="search_by_content" var="serachByContent"/>
     <spring:message code="search_by_tag" var="searchByTag"/>
     <spring:message code="search_by_category" var="searchByCategory"/>
@@ -17,11 +13,11 @@
             <div class="navbar-header">
                 <a href="${homeUrl}" title="Home">
 
-                    <img src="http://localhost:8080/web-resources/img/logo-small.png"></img>
+                    <img src="http://localhost:8080/web-resources/img/logo-small.png"/>
                 </a>
             </div>
             <form class="navbar-form navbar-right" action="/searchAll" method="post">
-                <input id="searchString" class="form-control col-lg-8" placeholder="Search" name="searchString"></input>
+                <input id="searchString" class="form-control col-lg-8" placeholder="Search" name="searchString"/>
             </form>
             <form class="navbar-form navbar-right">
                 <select class="form-control" id="select">

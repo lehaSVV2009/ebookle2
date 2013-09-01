@@ -36,7 +36,7 @@ public class AdministrationController {
     }
 
     @Secured("hasRole('ROLE_ADMIN')")
-    @RequestMapping(value = "/removeUser/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/removeUser/{id}", method = RequestMethod.GET)
     public String removeUser (@PathVariable("id") Integer userId) {
 
         adminService.removeUser(userId);

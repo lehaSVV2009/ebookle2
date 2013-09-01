@@ -1,10 +1,6 @@
-<div xmlns:jsp="http://java.sun.com/JSP/Page"
-     xmlns:c="http://java.sun.com/jsp/jstl/core"
-     xmlns:spring="http://www.springframework.org/tags"
-     version="2.0"
-     class="wrapper">
-    <jsp:directive.page contentType="text/html; charset=UTF-8"/>
-    <jsp:output omit-xml-declaration="yes"/>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div class="wrapper">
 
     <spring:message code="label.administration" var="labelAdministration"/>
     <spring:message code="label.name_head" var="labelSurname"/>
@@ -45,7 +41,7 @@
                 </td>
                 <td class="closeCol">
                     <a href="/removeUser/${user.id}">
-                        <img src="http://localhost:8080/web-resources/img/delete16.png"></img>
+                        <img src="http://localhost:8080/web-resources/img/delete16.png"/>
                     </a>
                 </td>
             </tr>

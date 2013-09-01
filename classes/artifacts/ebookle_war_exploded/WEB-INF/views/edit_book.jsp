@@ -1,10 +1,6 @@
-<div xmlns:jsp="http://java.sun.com/JSP/Page"
-     xmlns:c="http://java.sun.com/jsp/jstl/core"
-     xmlns:spring="http://www.springframework.org/tags"
-     version="2.0"
-     class="wrapper"   >
-    <jsp:directive.page contentType="text/html; charset=UTF-8"/>
-    <jsp:output omit-xml-declaration="yes"/>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div class="wrapper"   >
 
     <spring:message code="label.tags" var="labelTags"/>
     <spring:message code="label.add_tag" var="labelAddTag"/>
@@ -29,10 +25,8 @@
         </tr>
     </table>
     <c:choose>
-        <!--for Users who can edit -->
         <c:when test="${person eq 'ownUser'}">
             <c:choose>
-                <!--edit book-->
                 <c:when test="${userAction eq 'edit'}">
 
                     <div class="well leftSidePanel">
@@ -48,7 +42,7 @@
                                     </td>
                                     <td>
                                         <a href="/${userLogin}/editBook/${bookTitle}/${chapter.chapterNumber}/deleteChapter">
-                                            <img src="http://localhost:8080/web-resources/img/delete16.png"></img>
+                                            <img src="http://localhost:8080/web-resources/img/delete16.png"/>
                                         </a>
                                     </td>
                                 </tr>
@@ -85,28 +79,7 @@
                         </form>
                     </div>
 
-                          <!--
-                    <div class="well content">
-                        <form action="/${userLogin}/editBook/${bookTitle}/${currentChapter.chapterNumber}" method="get">
-                            <input type="submit" value="${labelEdit}"/>
-                        </form>
-                        <form action="/${userLogin}/editBook/${bookTitle}/${currentChapter.chapterNumber}/show"
-                              method="get">
-                            <input type="submit" value="${labelShow}"/>
-                        </form>
-                        <form action="/${userLogin}/editBook/${bookTitle}/${currentChapter.chapterNumber}/save"
-                              method="post">
-                            <textarea name="text" class="reader">${currentChapter.text}</textarea>
-                            <br/>
-                            <input type="submit" value="${labelSave}"/>
-                        </form>
-
-                    </div>
-
-                    -->
                 </c:when>
-
-                <!--read book-->
 
                 <c:otherwise>
                     <div class="well leftSidePanel">
@@ -134,21 +107,11 @@
                     </div>
                     <div class="well content">
 
-                        <!--<form action="/${userLogin}/editBook/${bookTitle}/${currentChapter.chapterNumber}" method="get">
-                            <input type="submit" value="${labelEdit}"/>
-                        </form>
-                        <form action="/${userLogin}/editBook/${bookTitle}/${currentChapter.chapterNumber}/show"
-                              method="get">
-                            <input type="submit" value="${labelShow}"/>
-                        </form>
-                        <div disabled="disabled" class="reader">${htmlChapterText}</div>
--->
-
                         <div class="btn-group btn-group-justified">
-                            <a href="#" id="biggerButton" class="btn btn-default" onClick="changeSize(10)">${labelFontSizePlus}</a>
-                            <a href="#" id="smallerButton" class="btn btn-default"  onClick="changeSize(-10)">${labelFontSizeMinus}</a>
-                            <a href="#" id="biggerButton" class="btn btn-default"  onClick="changeWidth(25)">${labelWidthPlus}</a>
-                            <a href="#" id="smallerButton" class="btn btn-default"  onClick="changeWidth(-25)">${labelWidthMinus}</a>
+                            <a href="#" class="btn btn-default" onClick="changeSize(10)">${labelFontSizePlus}</a>
+                            <a href="#" class="btn btn-default"  onClick="changeSize(-10)">${labelFontSizeMinus}</a>
+                            <a href="#" class="btn btn-default"  onClick="changeWidth(25)">${labelWidthPlus}</a>
+                            <a href="#" class="btn btn-default"  onClick="changeWidth(-25)">${labelWidthMinus}</a>
                             <a href="/${userLogin}/editBook/${bookTitle}/${currentChapter.chapterNumber}" class="btn btn-default">
                                 ${labelEdit}</a>
                             <a href="/${userLogin}/editBook/${bookTitle}/${currentChapter.chapterNumber}/show" class="btn btn-default">
@@ -157,7 +120,7 @@
                         <div class="reader">${htmlChapterText}</div>
 
                         <br/>
-                        <img src="http://localhost:8080/web-resources/img/rating.png"></img>
+                        <img src="http://localhost:8080/web-resources/img/rating.png"/>
                         ${book.rating}
                     </div>
                 </c:otherwise>
@@ -165,7 +128,6 @@
 
         </c:when>
 
-        <!--for user who cant edit-->
         <c:otherwise>
 
             <div class="well leftSidePanel">
@@ -193,17 +155,17 @@
             </div>
             <div class="well content">
                 <div class="btn-group btn-group-justified">
-                    <a href="#" id="biggerButton" class="btn btn-default" onClick="changeSize(10)">${labelFontSizePlus}</a>
-                    <a href="#" id="smallerButton" class="btn btn-default"  onClick="changeSize(-10)">${labelFontSizeMinus}</a>
-                    <a href="#" id="biggerButton" class="btn btn-default"  onClick="changeWidth(25)">${labelWidthPlus}</a>
-                    <a href="#" id="smallerButton" class="btn btn-default"  onClick="changeWidth(-25)">${labelWidthMinus}</a>
+                    <a href="#" class="btn btn-default" onClick="changeSize(10)">${labelFontSizePlus}</a>
+                    <a href="#" class="btn btn-default"  onClick="changeSize(-10)">${labelFontSizeMinus}</a>
+                    <a href="#" class="btn btn-default"  onClick="changeWidth(25)">${labelWidthPlus}</a>
+                    <a href="#" class="btn btn-default"  onClick="changeWidth(-25)">${labelWidthMinus}</a>
                 </div>
 
                 <div class="reader">${htmlChapterText}</div>
 
                 <br/>
 
-                <img src="http://localhost:8080/web-resources/img/rating.png"></img>
+                <img src="http://localhost:8080/web-resources/img/rating.png"/>
                 ${book.rating}
                 <c:if test="${person eq 'notOwnUser'}">
                     <spring:url value="/${userLogin}/editBook/${bookTitle}/${currentChapter.chapterNumber}/show/1"
@@ -213,19 +175,18 @@
 
                     <c:if test="${mark ne 'showJustDislike'}">
                         <a href="${likeUrl}">
-                            <img src="http://localhost:8080/web-resources/img/like.png"></img>
-                            <!--${labelLike}-->
+                            <img src="http://localhost:8080/web-resources/img/like.png"/>
                         </a>
                     </c:if>
                     <c:if test="${mark ne 'showJustLike'}">
                         <a href="${dislikeUrl}">
-                            <img src="http://localhost:8080/web-resources/img/dislike.png"></img>
+                            <img src="http://localhost:8080/web-resources/img/dislike.png"/>
                         </a>
                     </c:if>
 
                     <div style="float : right">
                         <a href="/${userLogin}/editBook/${bookTitle}/${chapterNumber}/savePdf">
-                            <img src="http://localhost:8080/web-resources/img/pdf.png"></img>
+                            <img src="http://localhost:8080/web-resources/img/pdf.png"/>
                         </a>
                     </div>
                 </c:if>

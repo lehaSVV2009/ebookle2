@@ -4,54 +4,42 @@
         "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 <tiles-definitions>
 
-    <definition name="default" template="/WEB-INF/views/default.jspx">
-        <put-attribute name="header" value="/WEB-INF/views/common/header.jspx"/>
-        <put-attribute name="menu" value="/WEB-INF/views/menu.jspx"/>
-        <put-attribute name="footer" value="/WEB-INF/views/common/footer.jspx"/>
+    <definition name="default" template="/WEB-INF/views/default.jsp">
+        <put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
     </definition>
 
     <definition name="home" extends="default">
-        <put-attribute name="body" value="/WEB-INF/views/home.jspx"/>
-    </definition>
-
-    <definition name="registration" extends="default">
-        <put-attribute name="body" value="/WEB-INF/views/registration.jspx"/>
-    </definition>
-
-    <definition name="registration_success" extends="default">
-        <put-attribute name="body" value="/WEB-INF/views/registration_success.jspx"/>
+        <put-attribute name="body" value="/WEB-INF/views/home.jsp"/>
     </definition>
 
     <definition name="admin" extends="default">
-        <put-attribute name="body" value="/WEB-INF/views/admin.jspx"/>
+        <put-attribute name="body" value="/WEB-INF/views/admin.jsp"/>
     </definition>
 
     <definition name="create_new_book" extends="default">
-        <put-attribute name="body" value="/WEB-INF/views/create_new_book.jspx"/>
+        <put-attribute name="body" value="/WEB-INF/views/create_new_book.jsp"/>
     </definition>
 
-    <definition name="edit_book" extends="default">
-        <put-attribute name="body" value="/WEB-INF/views/edit_book.jspx"/>
-    </definition>
+     <definition name="registration" extends="default">
+         <put-attribute name="body" value="/WEB-INF/views/registration.jsp"/>
+     </definition>
 
-    <definition name="error" extends="default">
-        <put-attribute name="body" value="/WEB-INF/views/error.jspx"/>
-    </definition>
+     <definition name="registration_success" extends="default">
+         <put-attribute name="body" value="/WEB-INF/views/registration_success.jsp"/>
+     </definition>
 
-    <definition name="statistics" extends="default">
-        <put-attribute name="body" value="/WEB-INF/views/statistics.jspx"/>
-    </definition>
+     <definition name="edit_book" extends="default">
+         <put-attribute name="body" value="/WEB-INF/views/edit_book.jsp"/>
+     </definition>
 
-    <definition name="pdf_reference" extends="default">
-        <put-attribute name="body" value="/WEB-INF/views/pdf_reference.jspx"/>
-    </definition>
+     <definition name="error" extends="default">
+         <put-attribute name="body" value="/WEB-INF/views/error.jsp"/>
+     </definition>
 
-    <definition name="test" extends="default">
-        <put-attribute name="body" value="/WEB-INF/views/test.jspx"/>
-    </definition>
+     <definition name="statistics" extends="default">
+         <put-attribute name="body" value="/WEB-INF/views/statistics.jsp"/>
+     </definition>
 
-   <definition name="cloud" extends="default">
-        <put-attribute name="body" value="/WEB-INF/views/cloud.jspx"/>
-    </definition>
 
 </tiles-definitions>

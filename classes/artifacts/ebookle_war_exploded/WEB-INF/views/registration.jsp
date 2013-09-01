@@ -1,10 +1,6 @@
-<div xmlns:jsp="http://java.sun.com/JSP/Page"
-     xmlns:c="http://java.sun.com/jsp/jstl/core"
-     xmlns:spring="http://www.springframework.org/tags"
-     version="2.0"
-     class="wrapper">
-    <jsp:directive.page contentType="text/html; charset=UTF-8"/>
-    <jsp:output omit-xml-declaration="yes"/>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div class="wrapper">
 
     <spring:message code="registration_label" var="registrationLabel"/>
     <spring:message code="login_label" var="loginLabel"/>
