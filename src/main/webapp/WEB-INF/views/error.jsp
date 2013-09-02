@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="alert-error">
 
     <div class="error">
         ${error}

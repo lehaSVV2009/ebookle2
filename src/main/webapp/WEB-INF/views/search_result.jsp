@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="wrapper">
 
-
-
     <div class="well">
         Search result
         <table class="table table-bordered table-striped table1">

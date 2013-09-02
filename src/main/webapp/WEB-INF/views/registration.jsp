@@ -11,7 +11,7 @@
     <spring:message code="register_text" var="registerText"/>
 
     <c:if test="${not empty badInput}">
-        <div class="error">
+        <div class="alert-error">
                 ${badInput}
         </div>
         <br/>

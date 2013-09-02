@@ -19,7 +19,7 @@
     <spring:message code="cancel" var="cancel"/>
 
     <c:if test="${not empty error}">
-        <div class="error">
+        <div class="alert-error">
             ${error}
         </div>
         <br/>

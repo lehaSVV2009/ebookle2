@@ -7,6 +7,4 @@
         ${labelSuccess}
     </div>
 
-
-
 </div>

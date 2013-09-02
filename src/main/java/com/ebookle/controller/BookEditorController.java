@@ -49,10 +49,15 @@ public class BookEditorController {
     @Secured("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(value = "/{userLogin}/bookCreation", method = RequestMethod.GET)
     public String goToBookCreation (@PathVariable("userLogin") String userLogin, ModelMap modelMap) {
-        modelMap.addAttribute("categories", categoryService.findAll());
-        modelMap.addAttribute("userLogin", userLogin);
+        adjustModelForCreateNewBook(modelMap, userLogin);
         return "create_new_book";
     }
+
+    private void adjustModelForCreateNewBook (ModelMap modelMap, String userLogin) {
+        modelMap.addAttribute("categories", categoryService.findAll());
+        modelMap.addAttribute("userLogin", userLogin);
+    }
+
 
 
     @Secured("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
@@ -64,39 +69,44 @@ public class BookEditorController {
                                  BindingResult errors) {
 
         if (!principal.getName().equals(userLogin)) {
-            modelMap.addAttribute("error", "You cannot enter site!");
-            return "error";
+            return sendErrorToJsp("error", modelMap, "You cannot enter site!");
         }
-        String bookTitle = bookForm.getTitle();
         User user = userService.findByLogin(principal.getName());
         bookValidator.validate(bookForm, errors, user);
         if (errors.hasErrors()) {
-            modelMap.addAttribute("error", "Bad book title!");
-            modelMap.addAttribute("categories", categoryService.findAll());
-            modelMap.addAttribute("userLogin", userLogin);
-            return "create_new_book";
+            adjustModelForCreateNewBook(modelMap, userLogin);
+            return sendErrorToJsp("create_new_book", modelMap, "Bad book title!");
         }
-        Category category = categoryService.findById(bookForm.getCategory());
+        Book book = createNewBookFromForm(bookForm, user);
+        bookService.saveOrUpdate(book);
+        return "redirect:/" + userLogin + "/editBook/" + Encoder.encode(bookForm.getTitle()) + "/1";
+    }
+
+    private String sendErrorToJsp (String jspName, ModelMap modelMap, String error) {
+        modelMap.addAttribute("error", error);
+        return jspName;
+    }
+
+    private Book createNewBookFromForm (BookCreationForm form, User user) {
+
+        Category category = categoryService.findById(form.getCategory());
         Book book = new Book(
-                bookTitle,
-                bookForm.getDescription(),
+                form.getTitle(),
+                form.getDescription(),
                 user,
                 category
         );
-        String bookTag = bookForm.getBookTag();
+        String bookTag = form.getBookTag();
         if (bookTag != null && !"".equals(bookTag)) {
             book = addTag(bookTag, book);
         }
-        bookService.saveOrUpdate(book);
-        bookTitle = Encoder.encode(bookTitle);
-        return "redirect:/" + userLogin + "/editBook/" + bookTitle + "/1";
+        return book;
     }
 
 
     @Secured("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(value = "/{userLogin}/editBook/{bookTitle}/{chapterNumber}/addTag", method = RequestMethod.POST)
-    public String addTag (Principal principal,
-                          @PathVariable("chapterNumber") Integer chapterNumber,
+    public String addTag (Principal principal, @PathVariable("chapterNumber") Integer chapterNumber,
                           @PathVariable("userLogin") String userLogin,
                           @PathVariable("bookTitle") String bookTitle,
                           @RequestParam("bookTag") String bookTag,
@@ -104,15 +114,19 @@ public class BookEditorController {
         bookTitle = Encoder.decode(bookTitle);
         if (principal == null
                 || ! principal.getName().equals(userLogin)) {
-            modelMap.addAttribute("error", "Страница недоступна!");
-            return "error";
+            return sendErrorToJsp("error", modelMap, "Страница недоступна!");
         }
-        User user = userService.findByLogin(userLogin);
-        Book book = bookService.findByTitleAndUserIdWithTags(bookTitle, user);
+        Book book = getBookFromDB(bookTitle, userLogin);
         book = addTag(bookTag, book);
         bookService.saveOrUpdate(book);
         bookTitle = Encoder.encode(bookTitle);
         return "redirect:/" + userLogin + "/editBook/" + bookTitle + "/" + chapterNumber;
+    }
+
+    private Book getBookFromDB (String bookTitle, String userLogin) {
+        User user = userService.findByLogin(userLogin);
+        Book book = bookService.findByTitleAndUserIdWithTags(bookTitle, user);
+        return book;
     }
 
     private Book addTag(String bookTag, Book book) {
@@ -122,9 +136,7 @@ public class BookEditorController {
         }
         Tag tag = tagService.findTagByName(bookTag);
         if (tag == null) {
-            tag = new Tag();
-            tag.setBookTag(bookTag);
-            tag.setCounter(0);
+            tag = createNewTag(bookTag);
             tagService.saveOrUpdate(tag);
         } else {
             tag.setCounter(tag.getCounter() + 1);
@@ -132,6 +144,13 @@ public class BookEditorController {
         }
         book.getTags().add(tag);
         return book;
+    }
+
+    private Tag createNewTag (String tagName) {
+        Tag tag = new Tag();
+        tag.setBookTag(tagName);
+        tag.setCounter(0);
+        return tag;
     }
 
     private boolean bookHasTag (Book book, String bookTag) {
@@ -164,13 +183,17 @@ public class BookEditorController {
             book = bookService.findByTitleAndUserIdWithChapters(bookTitle, user);
             chapterNumber = 1;
         }
+        adjustModelForUpdateBook(modelMap, book, userLogin, chapterNumber, bookTitle, user);
+        return "edit_book";
+    }
+
+    private void adjustModelForUpdateBook (ModelMap modelMap, Book book, String userLogin, Integer chapterNumber, String bookTitle, User user) {
         modelMap.addAttribute("book", book);
         modelMap.addAttribute("userLogin", userLogin);
         modelMap.addAttribute("currentChapter", book.getChapters().get(chapterNumber - 1));
         modelMap.addAttribute("userAction", "edit");
         modelMap.addAttribute("person", "ownUser");
         modelMap.addAttribute("tags", bookService.findByTitleAndUserIdWithTags(bookTitle, user).getTags());
-        return "edit_book";
     }
 
 

@@ -29,10 +29,9 @@ html, body {
     height: 100%;
 }
 footer {
-    color: #9c9c9c;
-    background: #222;
-    padding: 17px 0 18px 0;
-    border-top: 1px solid #000;
+    /*color: #9c9c9c;*/
+    /*padding: 17px 0 18px 0;*/
+    /*border-top: 1px solid #000;*/
     width: 100%;
 }
 footer a {

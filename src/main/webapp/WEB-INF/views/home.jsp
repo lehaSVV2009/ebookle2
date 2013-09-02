@@ -28,14 +28,14 @@
 
 
 <c:if test="${not empty flashMessage}">
-    <div class="error">
+    <div class="alert-error">
             ${flashMessage}
     </div>
     <br/>
 </c:if>
 
 <c:if test="${not empty goodMessage}">
-    <div class="success">
+    <div class="alert-success">
             ${goodMessage}
     </div>
     <br/>

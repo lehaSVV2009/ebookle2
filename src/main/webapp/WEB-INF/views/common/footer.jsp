@@ -4,7 +4,7 @@
 
     <spring:message code="footer_text" var="footerText"/>
 
-    <div class="container">
+    <div class="container well">
 
         <span>
             <a href="?lang=ru"><img src="http://localhost:8080/web-resources/img/rus16.png"/>rus</a>
