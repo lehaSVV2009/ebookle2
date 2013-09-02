@@ -11,38 +11,33 @@
     <spring:message code="register_text" var="registerText"/>
 
     <c:if test="${not empty badInput}">
-        <div class="error">
-                ${badInput}
-        </div>
-        <br/>
+        <div class="error">${badInput}</div>
     </c:if>
-
     <div class="well">
-        <form action="/register" id="registrationForm" name="registrationForm" method="post" class="form-horizontal"
-              role="form">
+        <form  action="/register" id="registrationForm" name="registrationForm" method="post" class="form-horizontal" role="form">
             <div class="form-group">
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" placeholder="${loginLabel}" name="login">
+                    <input type="text" class="form-control"  placeholder="${loginLabel}" name="login">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-lg-10">
-                    <input type="password" class="form-control" placeholder="${passwordLabel}" name="password">
+                    <input type="password" class="form-control"  placeholder="${passwordLabel}" name="password">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" placeholder="${emailLabel}" name="email">
+                    <input type="text" class="form-control"  placeholder="${emailLabel}" name="email">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" placeholder="${nameLabel}" name="name">
+                    <input type="text" class="form-control"  placeholder="${nameLabel}" name="name">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" placeholder="${surnameLabel}" name="surname">
+                    <input type="text" class="form-control"  placeholder="${surnameLabel}" name="surname">
                 </div>
             </div>
             <div class="form-group">
@@ -50,8 +45,6 @@
                     <button type="submit" class="btn btn-default">${registerText}</button>
                 </div>
             </div>
-
         </form>
-
     </div>
 </div>

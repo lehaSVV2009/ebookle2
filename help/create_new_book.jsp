@@ -1,14 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="wrapper create-form" >
-
-    <link rel="stylesheet" type="text/css"
-          href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"/>
-
-    <script type="text/javascript"
-            src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript"
-            src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+<div class="wrapper create-form">
 
     <spring:message code="create_book_label" var="createBookLabel"/>
     <spring:message code="title_label" var="titleLabel"/>
@@ -24,7 +16,6 @@
         </div>
         <br/>
     </c:if>
-
     <div class="well">
         <h2>${createBookLabel}</h2>
         <form action="/${userLogin}/createNewBook" method="post" id="bookCreationForm" name="bookCreationForm" class="form-horizontal" role="form">
@@ -54,22 +45,17 @@
                     <input type="text" class="form-control" id="inputTag" placeholder="${addTagLabel}" name="bookTag">
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-lg-10">
-                    <button type="submit" class="btn btn-default">${createBookButtonText}</button>
+                <div class="form-group">
+                    <div class="col-lg-10">
+                        <button type="submit" class="btn btn-default">${createBookButtonText}</button>
+                    </div>
                 </div>
-            </div>
         </form>
     </div>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-
-            $( "#bookTag" ).autocomplete({
-                source: '${pageContext.request.contextPath}/autocomplete'
-            });
-
-        });
-    </script>
-
 </div>
+
+
+
+
+
+

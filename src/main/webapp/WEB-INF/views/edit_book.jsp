@@ -180,18 +180,13 @@
                 <img src="http://localhost:8080/web-resources/img/rating.png"/>
                 ${book.rating}
                 <c:if test="${person eq 'notOwnUser'}">
-                    <spring:url value="/${userLogin}/editBook/<%=bookTitle%>/${currentChapter.chapterNumber}/show/1"
-                                var="likeUrl"/>
-                    <spring:url value="/${userLogin}/editBook/<%=bookTitle%>/${currentChapter.chapterNumber}/show/-1"
-                                var="dislikeUrl"/>
-
                     <c:if test="${mark ne 'showJustDislike'}">
-                        <a href="${likeUrl}">
+                        <a href="/${userLogin}/editBook/<%=bookTitle%>/${currentChapter.chapterNumber}/show/1">
                             <img src="http://localhost:8080/web-resources/img/like.png"/>
                         </a>
                     </c:if>
                     <c:if test="${mark ne 'showJustLike'}">
-                        <a href="${dislikeUrl}">
+                        <a href="/${userLogin}/editBook/<%=bookTitle%>/${currentChapter.chapterNumber}/show/-1">
                             <img src="http://localhost:8080/web-resources/img/dislike.png"/>
                         </a>
                     </c:if>

@@ -6,6 +6,7 @@ import com.ebookle.entity.User;
 import com.ebookle.service.BookService;
 import com.ebookle.service.PreferService;
 import com.ebookle.service.UserService;
+import com.ebookle.util.Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -42,6 +43,7 @@ public class PreferController {
                             @PathVariable("mark") int mark,
                             ModelMap modelMap,
                             Principal principal) {
+        bookTitle = Encoder.decode(bookTitle);
         Book book = findBookByTitleAndAuthorLogin(userLogin, bookTitle);
         if (book == null || (mark != 1 && mark != -1)) {
             return sendErrorMessage(modelMap, "Page not found");
@@ -50,6 +52,7 @@ public class PreferController {
         Prefer userPrefer = adjustUserPrefer(book, markAuthor, mark);
         preferService.saveOrUpdate(userPrefer);
         bookService.saveOrUpdate(book);
+        bookTitle = Encoder.encode(bookTitle);
         return "redirect:/" + userLogin + "/editBook/" + bookTitle + "/" +  chapterNumber + "/show";
     }
 

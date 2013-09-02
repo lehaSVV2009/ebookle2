@@ -4,15 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="wrapper"   >
 
-    <link rel="stylesheet" type="text/css"
-          href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"/>
-
-    <script type="text/javascript"
-            src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript"
-            src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
-
-
     <spring:message code="label.tags" var="labelTags"/>
     <spring:message code="label.add_tag" var="labelAddTag"/>
     <spring:message code="label.add_like" var="labelLike"/>
@@ -47,10 +38,9 @@
                             <c:forEach items="${book.chapters}" var="chapter">
                                 <tr>
                                     <td>
-                                        <form action="/${userLogin}/editBook/<%=bookTitle%>/${chapter.chapterNumber}"
-                                              method="get">
-                                            <input type="submit" value="${chapter.title}"/>
-                                        </form>
+                                        <a href="/${userLogin}/editBook/<%=bookTitle%>/${chapter.chapterNumber}">
+                                            ${chapter.title}
+                                        </a>
                                     </td>
                                     <td>
                                         <a href="/${userLogin}/editBook/<%=bookTitle%>/${chapter.chapterNumber}/deleteChapter">
@@ -64,7 +54,7 @@
 
                         <form action="/${userLogin}/editBook/<%=bookTitle%>/${currentChapter.chapterNumber}/addTag"
                               method="post">
-                            <input type="text" name="bookTag" id="bookTag" placeholder="${labelAddTag}"/>
+                            <input type="text" name="bookTag" placeholder="${labelAddTag}"/>
                         </form>
                         <br/>
                         ${labelTags}:
@@ -180,13 +170,18 @@
                 <img src="http://localhost:8080/web-resources/img/rating.png"/>
                 ${book.rating}
                 <c:if test="${person eq 'notOwnUser'}">
+                    <spring:url value="/${userLogin}/editBook/<%=bookTitle%>/${currentChapter.chapterNumber}/show/1"
+                                var="likeUrl"/>
+                    <spring:url value="/${userLogin}/editBook/<%=bookTitle%>/${currentChapter.chapterNumber}/show/-1"
+                                var="dislikeUrl"/>
+
                     <c:if test="${mark ne 'showJustDislike'}">
-                        <a href="/${userLogin}/editBook/<%=bookTitle%>/${currentChapter.chapterNumber}/show/1">
+                        <a href="${likeUrl}">
                             <img src="http://localhost:8080/web-resources/img/like.png"/>
                         </a>
                     </c:if>
                     <c:if test="${mark ne 'showJustLike'}">
-                        <a href="/${userLogin}/editBook/<%=bookTitle%>/${currentChapter.chapterNumber}/show/-1">
+                        <a href="${dislikeUrl}">
                             <img src="http://localhost:8080/web-resources/img/dislike.png"/>
                         </a>
                     </c:if>
@@ -202,16 +197,5 @@
         </c:otherwise>
 
     </c:choose>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-
-            $( "#bookTag" ).autocomplete({
-                source: '${pageContext.request.contextPath}/autocomplete'
-            });
-
-        });
-    </script>
-
 
 </div>

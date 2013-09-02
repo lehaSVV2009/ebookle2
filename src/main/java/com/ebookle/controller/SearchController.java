@@ -19,6 +19,4 @@ import java.util.List;
 @Controller
 public class SearchController {
 
-
-
 }

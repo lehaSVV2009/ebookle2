@@ -1,6 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="wrapper">
+<div class="wrapper create-form" >
 
     <link rel="stylesheet" type="text/css"
           href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"/>
@@ -25,56 +25,42 @@
         <br/>
     </c:if>
 
-
-    <form action="/${userLogin}/createNewBook" method="post" id="bookCreationForm" name="bookCreationForm"
-          class="bs-example form-horizontal well">
-        <fieldset>
-
+    <div class="well">
+        <h2>${createBookLabel}</h2>
+        <form action="/${userLogin}/createNewBook" method="post" id="bookCreationForm" name="bookCreationForm" class="form-horizontal" role="form">
             <div class="form-group">
-                <label for="inputEmail" class="col-lg-2 control-label">
-                    <h2>${createBookLabel}</h2>
-                </label>
-            </div>
-            <br/>
-            <div class="form-group">
-                <label for="inputEmail" class="col-lg-2 control-label">${titleLabel}</label>
-
                 <div class="col-lg-10">
-                    <input type="text" name="title"/>
+                    <input type="text" class="form-control" id="inputTitle1" placeholder="${titleLabel}" name="title">
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputEmail" class="col-lg-2 control-label">${descriptionLabel}</label>
-
                 <div class="col-lg-10">
-                    <input type="text" name="description"/>
+                    <input type="text" class="form-control" id="inputDescription" placeholder="${descriptionLabel}" name="description">
                 </div>
             </div>
-            <c:if test="${not empty categories}">
-                <div class="form-group">
-                    <label for="inputEmail" class="col-lg-2 control-label">${categoryLabel}</label>
-
+            <div class="form-group">
+                <c:if test="${not empty categories}">
                     <div class="col-lg-10">
-                        <select name="category">
+                        <select name="category" class="form-control">
                             <c:forEach items="${categories}" var="categoryItem">
                                 <option value="${categoryItem.id}">${categoryItem.name}</option>
                             </c:forEach>
                         </select>
                     </div>
-                </div>
-            </c:if>
+                </c:if>
+            </div>
             <div class="form-group">
-                <label for="inputEmail" class="col-lg-2 control-label">${addTagLabel}</label>
-
                 <div class="col-lg-10">
-                    <input type="text" name="bookTag" id="bookTag"/>
+                    <input type="text" class="form-control" id="inputTag" placeholder="${addTagLabel}" name="bookTag">
                 </div>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-default btn-lg btn-block">${createBookButtonText}</button>
+                <div class="col-lg-10">
+                    <button type="submit" class="btn btn-default">${createBookButtonText}</button>
+                </div>
             </div>
-        </fieldset>
-    </form>
+        </form>
+    </div>
 
     <script type="text/javascript">
         $(document).ready(function() {

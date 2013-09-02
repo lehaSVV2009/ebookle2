@@ -1,6 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="wrapper">
+<div class="wrapper registration-div">
 
     <spring:message code="registration_label" var="registrationLabel"/>
     <spring:message code="login_label" var="loginLabel"/>
@@ -12,52 +12,46 @@
 
     <c:if test="${not empty badInput}">
         <div class="error">
-            ${badInput}
+                ${badInput}
         </div>
         <br/>
     </c:if>
 
-    <form action="/register" id="registrationForm" name="registrationForm" method="post"
-          class="bs-example form-horizontal well">
-        <fieldset>
+    <div class="well">
+        <form action="/register" id="registrationForm" name="registrationForm" method="post" class="form-horizontal"
+              role="form">
             <div class="form-group">
-                <label for="inputEmail" class="col-lg-2 control-label">${loginLabel}</label>
-
                 <div class="col-lg-10">
-                    <input type="text" name="login"/>
+                    <input type="text" class="form-control" placeholder="${loginLabel}" name="login">
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputEmail" class="col-lg-2 control-label">${passwordLabel}</label>
-
                 <div class="col-lg-10">
-                    <input type="password" name="password"/>
+                    <input type="password" class="form-control" placeholder="${passwordLabel}" name="password">
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputEmail" class="col-lg-2 control-label">${emailLabel}</label>
-
                 <div class="col-lg-10">
-                    <input type="email" name="email"/>
+                    <input type="text" class="form-control" placeholder="${emailLabel}" name="email">
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputEmail" class="col-lg-2 control-label">${nameLabel}</label>
-
                 <div class="col-lg-10">
-                    <input type="text" name="name"/>
+                    <input type="text" class="form-control" placeholder="${nameLabel}" name="name">
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputEmail" class="col-lg-2 control-label">${surnameLabel}</label>
-
                 <div class="col-lg-10">
-                    <input type="text" name="surname"/>
+                    <input type="text" class="form-control" placeholder="${surnameLabel}" name="surname">
                 </div>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-default btn-lg btn-block">${registerText}</button>
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button type="submit" class="btn btn-default">${registerText}</button>
+                </div>
             </div>
-        </fieldset>
-    </form>
+
+        </form>
+
+    </div>
 </div>

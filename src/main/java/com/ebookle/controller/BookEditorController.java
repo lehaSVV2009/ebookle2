@@ -249,5 +249,4 @@ public class BookEditorController {
         );
         chapterService.saveOrUpdate(chapter);
     }
-
 }
