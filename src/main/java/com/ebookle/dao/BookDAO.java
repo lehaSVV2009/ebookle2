@@ -26,4 +26,8 @@ public interface BookDAO extends AbstractDAO<Book, Integer> {
     public List<Book> findByCategoryWithAuthors (Category category);
     public List<Book> findByCategory (Category category);
     public List<Book> findAllByAuthor (User user);
+    public List<Book> searchCaptions (String searchString);
+    public List<Book> searchTag (String searchString);
+    public List<Book> searchCategory (String searchString);
+    public List<Book> searchTitleAndDescription (String searchString);
 }

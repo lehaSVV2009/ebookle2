@@ -2,7 +2,6 @@ package com.ebookle.service;
 
 import com.ebookle.entity.Book;
 import com.ebookle.entity.Chapter;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,4 +20,5 @@ public interface ChapterService {
     Chapter findById (int id);
     Chapter findByBookAndChapterNumber(Book book, Integer chapterNumber);
     List<Chapter> findAllByBook (Book book);
+    List<Chapter> searchTitleAndDescription (String searchString);
 }

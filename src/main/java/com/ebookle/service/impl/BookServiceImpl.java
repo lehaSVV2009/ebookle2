@@ -105,10 +105,21 @@ public class BookServiceImpl implements BookService {
         return bookDAO.findByCategory(category);
     }
 
-
     @Override
     @Transactional(readOnly = true)
     public List<Book> findAllByAuthor (User user) {
         return bookDAO.findAllByAuthor(user);
+    }
+
+    @Override
+    @Transactional
+    public List<Book> searchCaptions(String searchString) {
+        return bookDAO.searchCaptions(searchString);
+    }
+
+    @Override
+    @Transactional
+    public List<Book> searchTag(String searchString) {
+        return bookDAO.searchTag(searchString);
     }
 }

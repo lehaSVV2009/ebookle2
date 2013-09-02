@@ -1,12 +1,12 @@
 package com.ebookle.entity;
 
 
+import org.hibernate.search.annotations.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,6 +25,8 @@ public class Tag implements Entity, Serializable {
     private Integer id;
 
     @Column(name = "bookTag", unique = true)
+    @Analyzer(definition="Analyzer")
+    @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
     private String bookTag;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "tags")

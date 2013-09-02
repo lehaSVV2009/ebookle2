@@ -3,7 +3,6 @@ package com.ebookle.service;
 import com.ebookle.entity.Book;
 import com.ebookle.entity.Category;
 import com.ebookle.entity.User;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,4 +29,6 @@ public interface BookService {
     List<Book> findByCategoryWithAuthors (Category category);
     List<Book> findByCategory (Category category);
     List<Book> findAllByAuthor (User user);
+    List<Book> searchCaptions (String searchString);
+    List<Book> searchTag (String searchString);
 }

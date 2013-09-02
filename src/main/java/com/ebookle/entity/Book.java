@@ -1,15 +1,17 @@
 package com.ebookle.entity;
 
 
+import org.apache.solr.analysis.LowerCaseFilterFactory;
+import org.apache.solr.analysis.SnowballPorterFilterFactory;
+import org.apache.solr.analysis.StandardTokenizerFactory;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.search.annotations.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,7 +21,17 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 @javax.persistence.Entity
+@Indexed
 @Table(name = "Book")
+@AnalyzerDef(name = "Analyzer",
+        tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
+        filters = {
+                @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+                @TokenFilterDef(factory = SnowballPorterFilterFactory.class,
+                        params = @org.hibernate.search.annotations.Parameter(name = "language", value = "Russian")),
+                @TokenFilterDef(factory = SnowballPorterFilterFactory.class,
+                        params = @org.hibernate.search.annotations.Parameter(name = "language", value = "English"))
+        })
 public class Book implements Entity, Serializable {
 
     @Id
@@ -32,9 +44,13 @@ public class Book implements Entity, Serializable {
     private Integer version;
 
     @Column(name = "title")
+    @Analyzer(definition="Analyzer")
+    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String title;
 
     @Column(name = "description")
+    @Analyzer(definition="Analyzer")
+    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String description;
 
     @Column(name = "rating")
@@ -46,9 +62,11 @@ public class Book implements Entity, Serializable {
 
     @ManyToOne
     @JoinColumn(name = "CATEGORY_ID")
+    @IndexedEmbedded
     private Category category;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    @IndexedEmbedded
     private List<Chapter> chapters = new ArrayList<Chapter>();
 
     @Fetch(FetchMode.SELECT)
@@ -56,6 +74,7 @@ public class Book implements Entity, Serializable {
     @JoinTable(name = "bookTag",
             joinColumns = { @JoinColumn(name = "BOOK_ID") },
             inverseJoinColumns = { @JoinColumn(name = "TAG_ID") } )
+    @IndexedEmbedded
     private List<Tag> tags = new ArrayList<Tag>();
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)

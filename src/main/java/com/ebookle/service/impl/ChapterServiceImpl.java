@@ -57,4 +57,10 @@ public class ChapterServiceImpl implements ChapterService {
         return chapterDAO.findAllByBook(book);
     }
 
+    @Override
+    @Transactional
+    public List<Chapter> searchTitleAndDescription(String searchString) {
+        return chapterDAO.searchTitleAndDescription(searchString);
+    }
+
 }

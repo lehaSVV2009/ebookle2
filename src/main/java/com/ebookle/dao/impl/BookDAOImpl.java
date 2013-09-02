@@ -5,12 +5,11 @@ import com.ebookle.entity.Book;
 import com.ebookle.entity.Category;
 import com.ebookle.entity.User;
 import org.hibernate.FetchMode;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -114,6 +113,50 @@ public class BookDAOImpl extends AbstractDAOImpl<Book, Integer> implements BookD
                 .add(Restrictions.eq("user", user))
                 .addOrder(Order.asc("id"))
                 .list();
+    }
+
+    @Override
+    public List<Book> searchCaptions(String searchString) {
+        FullTextSession fullTextSession = Search.getFullTextSession(getSession());
+        QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity( Book.class ).get();
+        org.apache.lucene.search.Query query =
+                qb.keyword().onFields("description","title","tags.bookTag","category.name").matching(searchString).createQuery();
+        org.hibernate.Query hibQuery =
+                fullTextSession.createFullTextQuery(query, Book.class);
+        return hibQuery.list();
+    }
+
+    @Override
+    public List<Book> searchTag(String searchString) {
+        FullTextSession fullTextSession = Search.getFullTextSession(getSession());
+        QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity( Book.class ).get();
+        org.apache.lucene.search.Query query =
+                qb.keyword().onFields("tags.bookTag").matching(searchString).createQuery();
+        org.hibernate.Query hibQuery =
+                fullTextSession.createFullTextQuery(query, Book.class);
+        return hibQuery.list();
+    }
+
+    @Override
+    public List<Book> searchCategory(String searchString) {
+        FullTextSession fullTextSession = Search.getFullTextSession(getSession());
+        QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity( Book.class ).get();
+        org.apache.lucene.search.Query query =
+                qb.keyword().onFields("category").matching(searchString).createQuery();
+        org.hibernate.Query hibQuery =
+                fullTextSession.createFullTextQuery(query, Book.class);
+        return hibQuery.list();
+    }
+
+    @Override
+    public List<Book> searchTitleAndDescription(String searchString) {
+        FullTextSession fullTextSession = Search.getFullTextSession(getSession());
+        QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity( Book.class ).get();
+        org.apache.lucene.search.Query query =
+                qb.keyword().onFields("description","title").matching(searchString).createQuery();
+        org.hibernate.Query hibQuery =
+                fullTextSession.createFullTextQuery(query, Book.class);
+        return hibQuery.list();
     }
 
 }

@@ -1,6 +1,8 @@
 package com.ebookle.entity;
 
 
+import org.hibernate.search.annotations.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -12,6 +14,7 @@ import java.io.Serializable;
  * To change this template use File | Settings | File Templates.
  */
 @javax.persistence.Entity
+@Indexed
 @Table(name = "Chapter")
 public class Chapter implements Entity, Serializable {
 
@@ -25,9 +28,13 @@ public class Chapter implements Entity, Serializable {
     private Integer version;
 
     @Column(name = "title")
+    @Analyzer(definition="Analyzer")
+    @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
     private String title;
 
     @Column(name = "text", columnDefinition="TEXT")
+    @Analyzer(definition="Analyzer")
+    @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
     private String text;
 
     @Column(name = "chapterNumber")

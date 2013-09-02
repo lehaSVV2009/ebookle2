@@ -3,11 +3,11 @@ package com.ebookle.dao.impl;
 import com.ebookle.dao.ChapterDAO;
 import com.ebookle.entity.Book;
 import com.ebookle.entity.Chapter;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -40,6 +40,16 @@ public class ChapterDAOImpl extends AbstractDAOImpl<Chapter, Integer> implements
                 .add(Restrictions.eq("book", book))
                 .addOrder(Order.asc("chapterNumber"))
                 .list();
+    }
+    @Override
+    public List<Chapter> searchTitleAndDescription(String searchString) {
+        FullTextSession fullTextSession = Search.getFullTextSession(getSession());
+        QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity( Chapter.class ).get();
+        org.apache.lucene.search.Query query =
+                qb.keyword().onFields("text","title").matching(searchString).createQuery();
+        org.hibernate.Query hibQuery =
+                fullTextSession.createFullTextQuery(query, Chapter.class);
+        return hibQuery.list();
     }
 
 }

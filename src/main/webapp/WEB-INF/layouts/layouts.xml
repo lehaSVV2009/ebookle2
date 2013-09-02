@@ -41,5 +41,8 @@
          <put-attribute name="body" value="/WEB-INF/views/statistics.jsp"/>
      </definition>
 
+    <definition name="search_result" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/search_result.jsp"/>
+    </definition>
 
 </tiles-definitions>
