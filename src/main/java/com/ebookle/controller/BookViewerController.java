@@ -51,31 +51,41 @@ public class BookViewerController {
         Book book = bookService.findByTitleAndUserIdWithChapters(bookTitle, user);
         Chapter currentChapter = book.getChapters().get(chapterNumber - 1);
         String htmlChapterText = markdownProcessor.markdown(currentChapter.getText());
-        modelMap.addAttribute("book", book);
-        modelMap.addAttribute("userLogin", userLogin);
-        modelMap.addAttribute("currentChapter", currentChapter);
-        modelMap.addAttribute("userAction", "show");
-        modelMap.addAttribute("tags", bookService.findByTitleAndUserIdWithTags(bookTitle, user).getTags());
-        modelMap.addAttribute("htmlChapterText", htmlChapterText);
+        setMap(userLogin, bookTitle, modelMap, user, book, currentChapter, htmlChapterText);
+        setPerson(principal, userLogin, modelMap, book);
+        return "edit_book";
+    }
+
+    private void setPerson(Principal principal, String userLogin, ModelMap modelMap, Book book) {
         if (principal == null) {
             modelMap.addAttribute("person", "guest");
         } else if (!userLogin.equals(principal.getName())) {
             modelMap.addAttribute("person", "notOwnUser");
             User markAuthor = userService.findByLogin(principal.getName());
             Prefer prefer = preferService.findByBookAndMarkAuthor(book, markAuthor);
-            if (prefer == null) {
-                modelMap.addAttribute("mark", "showAll");
-            } else if (prefer.getMark() == 1) {
-                modelMap.addAttribute("mark", "showJustDislike");
-            } else {
-                modelMap.addAttribute("mark", "showJustLike");
-            }
+            setPrefer(modelMap, prefer);
         } else {
             modelMap.addAttribute("person", "ownUser");
         }
-        return "edit_book";
     }
 
+    private void setPrefer(ModelMap modelMap, Prefer prefer) {
+        if (prefer == null) {
+            modelMap.addAttribute("mark", "showAll");
+        } else if (prefer.getMark() == 1) {
+            modelMap.addAttribute("mark", "showJustDislike");
+        } else {
+            modelMap.addAttribute("mark", "showJustLike");
+        }
+    }
 
-
+    private void setMap(String userLogin, String bookTitle, ModelMap modelMap, User user,
+                        Book book, Chapter currentChapter, String htmlChapterText) {
+        modelMap.addAttribute("book", book);
+        modelMap.addAttribute("userLogin", userLogin);
+        modelMap.addAttribute("currentChapter", currentChapter);
+        modelMap.addAttribute("userAction", "show");
+        modelMap.addAttribute("tags", bookService.findByTitleAndUserIdWithTags(bookTitle, user).getTags());
+        modelMap.addAttribute("htmlChapterText", htmlChapterText);
+    }
 }
