@@ -8,44 +8,46 @@
     <spring:message code="label.login_head" var="labelLogin"/>
     <spring:message code="label.remove_head" var="labelRemove"/>
 
-    <h2>${labelAdministration}</h2>
+    <div class="well">
+        <h2>${labelAdministration}</h2>
 
-    <table class="table table-bordered table-striped table1">
-        <thead>
-        <tr>
-            <td>
-                ${labelSurname}
-            </td>
-            <td>
-                ${labelName}
-            </td>
-            <td>
-                ${labelLogin}
-            </td>
-            <td>
-                ${labelRemove}
-            </td>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${users}" var="user">
+        <table class="table table-bordered table-striped table1">
+            <thead>
             <tr>
                 <td>
-                    ${user.surname}
+                    ${labelSurname}
                 </td>
                 <td>
-                    ${user.name}
+                    ${labelName}
                 </td>
                 <td>
-                    ${user.login}
+                    ${labelLogin}
                 </td>
-                <td class="closeCol">
-                    <a href="/removeUser/${user.id}">
-                        <img src="http://localhost:8080/web-resources/img/delete16.png"/>
-                    </a>
+                <td>
+                    ${labelRemove}
                 </td>
             </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            <c:forEach items="${users}" var="user">
+                <tr>
+                    <td>
+                        ${user.surname}
+                    </td>
+                    <td>
+                        ${user.name}
+                    </td>
+                    <td>
+                        ${user.login}
+                    </td>
+                    <td class="closeCol">
+                        <a href="/removeUser/${user.id}">
+                            <img src="http://localhost:8080/web-resources/img/delete16.png"/>
+                        </a>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
 </div>
