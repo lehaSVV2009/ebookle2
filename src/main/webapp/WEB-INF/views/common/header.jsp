@@ -13,7 +13,7 @@
         <div class="container">
             <div class="navbar-header">
                 <a href="${homeUrl}" title="Home">
-                    <img src="http://localhost:8080/web-resources/img/logo-kittens.png"/>
+                    <img id="headerImg" src="http://localhost:8080/web-resources/img/logo-kittens.png"/>
                 </a>
             </div>
             <form class="navbar-form navbar-right" action="/search" method="post">
